@@ -47,7 +47,7 @@ class wizz_karotz {
 	const DEFAULT_LANG			= 'FR'; # 'DE', 'EN', 'ES'
 	const DEFAULT_VOICE			= 'FR-Carla'; # for future use...
 
-	protected $debug 			= false;
+	protected $debug 			= true;
 
 	protected $liveid			= null;
 	protected $rest_method		= null;
@@ -132,6 +132,7 @@ class wizz_karotz {
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_BINARYTRANSFER, $binary);
+		//echo 'URL:'.$this->build_rest_url();
 		$result = curl_exec($curl);
 		if (curl_errno($curl)) {
 			$curl_error = curl_error($curl); curl_close($curl);

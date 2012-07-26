@@ -235,7 +235,7 @@ function karotz_wp_dashboard_setup() {
 
 
 function karotz_statistic_dashboard(){
-	$filename = getKarotzLogFile();
+	$filename = '../'.getKarotzLogFile();
 	
 	$filecontent = "";
 	if(file_exists($filename))
@@ -243,6 +243,7 @@ function karotz_statistic_dashboard(){
 		$filecontent = file_get_contents($filename);
 	} else {
 		echo '<p>Datei nicht gefunden!'.$filename.'</p>';	
+		file_put_contents($filename,"Hier ist die Statistik-Datei!");
 	}
 	
 	$data = getKarotzTexts($filecontent);
@@ -352,7 +353,7 @@ function getKarotzLogFile(){
 
 function karotz_widget_statistic() {
 		
-	$filename = getKarotzLogFile();
+	$filename = '../'.getKarotzLogFile();
 		
 	echo getKarotzWidgetCSS();
 	echo getKarotzWidgetJavascript();
@@ -378,6 +379,7 @@ function karotz_widget_statistic() {
 		$filecontent = file_get_contents($filename);
 	} else {
 		echo '<p>Datei nicht gefunden!'.$filename.'</p>';	
+		file_put_contents($filename,"Hier ist die Statistik-Datei!");
 	}
 	if(trim($filecontent) == ""){		
 		echo str_replace(array("TITLE","CONTENT"),array("Nothing to do!","Sorry, currently there is no text to display..."),$box);

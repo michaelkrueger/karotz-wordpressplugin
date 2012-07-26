@@ -48,15 +48,15 @@ class Karotz extends wizz_karotz {
 	{
 		
 		$sUrl = "http://api.karotz.com/api/karotz/start?" . self::sign($installid, $apikey, $secret);
-		
+		//echo "InteractiveID-Query:".$sUrl;
 		//open connection
 		$ch = curl_init();
 				
 		curl_setopt($ch,CURLOPT_URL,$sUrl);
 		curl_setopt($ch,CURLOPT_POST,0);
 		curl_setopt($ch,CURLOPT_POSTFIELDS,"");
-		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1); 
-		curl_setopt($ch, CURLOPT_HEADER      ,1); 
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1); 
+		curl_setopt($ch, CURLOPT_HEADER      ,0); 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);  // RETURN THE CONTENTS OF THE CALL
 				
 		//execute post
@@ -64,10 +64,12 @@ class Karotz extends wizz_karotz {
 
 		//echo "Result:".$result;
 		$start=strpos($result,"<interactiveId>");
-		
-		$interactiveId=substr($result,$start+15,36);
+		if ($start>=0) {
+			$interactiveId=substr($result,$start+15,36);
 		//echo "interactiveId:".$interactiveId;
-		 
+		 } else {
+			echo "interactiveId konnte nicht ermittelt werden! Check Install-ID!";
+		 }
 			 		
 		return $interactiveId;
 		
